@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Create Shop Profile - Recipe World</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-blue-100 min-h-screen">
+
+  <!-- Header -->
+  <header class="bg-white shadow-md py-6 px-4 text-center">
+    <h1 class="text-3xl font-bold text-blue-700">🛍️ Create Your Shop Profile</h1>
+    <p class="text-gray-600 mt-2">Join Recipe World and grow your food business online</p>
+  </header>
+
+  <!-- Form Container -->
+  <div class="max-w-4xl mx-auto mt-8 p-8 bg-white rounded-xl shadow-lg">
+    <form action="/shop/create" method="POST"  class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+      <!-- Shop Name -->
+      <div>
+        <label class="block text-gray-800 font-medium mb-1" for="shopName">Shop Name</label>
+        <input type="text" id="shopName" name="shopName" required class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+      </div>
+
+      <!-- Owner Name -->
+      <div>
+        <label class="block text-gray-800 font-medium mb-1" for="ownerName">Owner Name</label>
+        <input type="text" id="ownerName" name="ownerName" required class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+      </div>
+
+      <!-- Address -->
+      <div class="md:col-span-2">
+        <label class="block text-gray-800 font-medium mb-1" for="Adressofshop">Address of Shop</label>
+        <textarea id="Adressofshop" name="Adressofshop" rows="3" required class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"></textarea>
+      </div>
+
+      <!-- Shop Type -->
+      <div>
+        <label class="block text-gray-800 font-medium mb-1" for="shopType">Type of Shop</label>
+        <select id="shopType" name="Typeofshop" required class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+          <option value="">Select type</option>
+          <option value="Restaurant">Restaurant</option>
+          <option value="Home Chef">Home Chef</option>
+          <option value="Bakery">Bakery</option>
+          <option value="Café">Café</option>
+          <option value="Sweet Shop">Sweet Shop</option>
+        </select>
+      </div>
+
+      <!-- Contact Email -->
+      <div>
+        <label class="block text-gray-800 font-medium mb-1" for="email">Contact Email</label>
+        <input type="email" id="email" name="ContactEmail" required class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+      </div>
+
+      <!-- Phone Number -->
+      <div>
+        <label class="block text-gray-800 font-medium mb-1" for="phone">PhoneNumber</label>
+        <input type="tel" id="phone" name="PhoneNumber" pattern="[0-9]{10}" required class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+      </div>
+
+      <!-- Opening Hours -->
+      <div>
+        <label class="block text-gray-800 font-medium mb-1" for="hours">Opening Hours</label>
+        <input type="text" id="hours" name="OpeningHours" placeholder="e.g., 9 AM - 9 PM" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+      </div>
+
+      <!-- Description -->
+      <div class="md:col-span-2">
+        <label class="block text-gray-800 font-medium mb-1" for="description">About Your Shop</label>
+        <textarea id="description" name="AboutYourShop" rows="3" placeholder="Write a short intro..." class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"></textarea>
+      </div>
+
+      <!-- Shop Image Upload -->
+      <div class="md:col-span-2">
+        <label class="block text-gray-800 font-medium mb-1" for="ShopImage">Shop Image</label>
+        <input type="file" id="ShopImage" name="ShopImage" accept="image/*" class="w-full border border-gray-300 rounded-lg px-4 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400" />
+        <p class="text-xs text-gray-500 mt-1">Upload a high-quality image to make your shop stand out!</p>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="md:col-span-2 text-center mt-4">
+        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-3 rounded-full shadow-lg transition duration-300">
+          🚀 Save Shop Profile
+        </button>
+      </div>
+
+    </form>
+  </div>
+
+</body>
+</html>

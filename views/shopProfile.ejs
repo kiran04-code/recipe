@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shop Profile | Recipe World</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    function toggleProfile() {
+      const menu = document.getElementById('profileDropdown');
+      menu.classList.toggle('hidden');
+    }
+
+    function toggleAddress(id) {
+      const addr = document.getElementById(`address-${id}`);
+      if (addr) addr.classList.toggle('hidden');
+    }
+
+    function togglePayment(id) {
+      const pay = document.getElementById(`payment-${id}`);
+      if (pay) pay.classList.toggle('hidden');
+    }
+  </script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+  <!-- Header -->
+  <header class="bg-white shadow p-4 flex justify-between items-center">
+    <h1 class="text-2xl font-bold text-blue-700">🍽️ Recipe World - Shop Dashboard</h1>
+    <div class="flex items-center space-x-4 relative">
+      <button onclick="toggleProfile()" class="flex items-center space-x-2 focus:outline-none">
+        <img src="https://t3.ftcdn.net/jpg/06/19/26/46/360_F_619264680_x2PBdGLF54sFe7kTBtAvZnPyXgvaRw0Y.jpg" alt="Profile" class="w-10 h-10 rounded-full border-2 border-blue-500" />
+      </button>
+      <div id="profileDropdown" class="absolute top-14 right-0 bg-white shadow-lg rounded-md w-48 hidden z-10">
+        <div class="px-4 py-3 border-b">
+          <p class="text-sm font-semibold text-gray-800"><%- shopuser.Name %></p>
+          <p class="text-xs text-gray-500"><%- shopuser.email %></p>
+        </div>
+        <div class="p-2">
+          <a href="#" class="block text-sm text-gray-700 hover:bg-gray-100 px-4 py-2 rounded">View Profile</a>
+          <a href="/logoutshops" class="block text-sm text-red-600 hover:bg-gray-100 px-4 py-2 rounded">Logout</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="max-w-7xl mx-auto p-6">
+
+    <!-- Shop Info -->
+    <div class="bg-white p-6 rounded-lg shadow-md mb-6 flex items-center space-x-6">
+      <img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092" alt="Shop Image" class="w-24 h-24 object-cover rounded-full border-4 border-blue-300">
+      <div>
+        <h1 class="text-xl font-semibold text-blue-600 mb-1">Shop Details!</h1>
+        <% ShopDetails.forEach(element => { %>
+          <h2 class="text-2xl font-bold text-gray-800"><%- element.shopName %></h2>
+          <p class="text-gray-600"><%- element.AboutYourShop %></p>
+          <p class="text-sm text-gray-400 mt-1"><%- element.ContactEmail %></p>
+        <% }) %>
+      </div>
+    </div>
+
+    <!-- Add New Food Button -->
+    <div class="mb-4 text-right">
+      <a href="/create-food" class="inline-block bg-green-500 text-white px-5 py-2 rounded-md hover:bg-green-600 transition">➕ Add New Food Item</a>
+    </div>
+
+    <!-- Product Table -->
+    <div class="bg-white p-4 rounded-lg shadow-md overflow-x-auto mb-10">
+      <h3 class="text-xl font-semibold text-gray-800 mb-4">📦 Your Food Listings</h3>
+      <table class="min-w-full bg-white">
+        <thead class="bg-gray-200">
+          <tr>
+            <th class="px-4 py-3 text-left">#</th>
+            <th class="px-4 py-3 text-left">Food Name</th>
+            <th class="px-4 py-3 text-left">Price</th>
+            <th class="px-4 py-3 text-left">Stock</th>
+            <th class="px-4 py-3 text-left">Created By</th>
+            <th class="px-4 py-3 text-left">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (products.length > 0) { %>
+            <% products.forEach((product, index) => { %>
+              <tr class="border-b hover:bg-gray-50">
+                <td class="px-4 py-2"><%= index + 1 %></td>
+                <td class="px-4 py-2 font-medium text-gray-800"><%= product.FoodName %></td>
+                <td class="px-4 py-2">₹<%= product.Price %></td>
+                <td class="px-4 py-2"><%= product.stock %></td>
+                <td class="px-4 py-2 text-gray-700"><%= product.createdBy || "N/A" %></td>
+                <td class="px-4 py-2 space-x-2">
+                  <a href="/edit-food/<%= product._id %>" class="bg-yellow-400 text-white px-3 py-1 rounded hover:bg-yellow-500 text-sm">✏️ Edit</a>
+                  <a href="/delete/<%= product._id %>" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 text-sm">🗑️ Delete</a>
+                  <a href="/add-stock/<%= product._id %>" class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 text-sm">➕ Stock</a>
+                </td>
+              </tr>
+            <% }); %>
+          <% } else { %>
+            <tr>
+              <td colspan="6" class="text-center text-gray-600 px-4 py-6">
+                🍽️ No food items found. Start adding delicious dishes!
+              </td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Orders Table -->
+    <div class="bg-white p-6 rounded-2xl shadow-xl overflow-x-auto border border-green-200">
+      <h3 class="text-2xl font-bold text-green-700 mb-6">🧾 All Orders Summary</h3>
+      <table class="w-full text-sm text-left text-gray-700">
+        <thead class="bg-green-100 text-green-800 uppercase font-semibold">
+          <tr>
+            <th class="px-4 py-3">#</th>
+            <th class="px-4 py-3">Food Item</th>
+            <th class="px-4 py-3">Buyer Info</th>
+            <th class="px-4 py-3">Quantity</th>
+            <th class="px-4 py-3">Total</th>
+            <th class="px-4 py-3">OrderKey</th>
+            <th class="px-4 py-3">Action</th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y">
+          <% let grandTotal = 0; %>
+          <% orders.forEach((order, i) => { %>
+            <% if (order.NoofOrders && order.NoofOrders.length > 0) { %>
+              <% order.NoofOrders.forEach((element, j) => { %>
+                <%  PriceWithQuantity = order.Price * element.quantity%>
+                  <% grandTotal += PriceWithQuantity; %>
+                <tr class="hover:bg-gray-50">
+                  <td class="px-4 py-3"><%= i + 1 %></td>
+                  <td class="px-4 py-3">
+                    <strong>Name:</strong> <%= order.FoodName %><br>
+                    <strong>Price:</strong> ₹<%= order.Price %>
+                  </td>
+                  <td class="px-4 py-3">
+                    <strong>Email:</strong> <%= element.user.email || 'N/A' %><br>
+                  </td>
+                  <td class="px-4 py-3"><%= element.quantity %></td>
+                  <td class="px-4 py-3 text-green-600 font-bold">₹<%= PriceWithQuantity %></td>
+                  <td class="px-4 py-3"><%= element.orderpass %></td>
+                  <td class="px-4 py-3 space-y-1">
+                    <button onclick="toggleAddress('<%= i %>_<%= j %>')" class="w-full bg-green-500 hover:bg-green-600 text-white text-xs rounded px-2 py-1">See Address</button>
+                    <div id="address-<%= i %>_<%= j %>" class="hidden text-sm text-gray-600">📍 <%= element.address %></div>
+                    <button onclick="togglePayment('<%= i %>_<%= j %>')" class="w-full bg-blue-500 hover:bg-blue-600 text-white text-xs rounded px-2 py-1">See Payment</button>
+                    <div id="payment-<%= i %>_<%= j %>" class="hidden text-sm text-gray-600">💳 Paid via <%= element.paymentMethod %></div>
+                    <form action="/cancel-order/<%= element._id %>" method="POST">
+                      <button type="submit" class="w-full bg-red-500 hover:bg-red-600 text-white text-xs rounded px-2 py-1">Cancel Order</button>
+                    </form>
+                  </td>
+                </tr>
+              <% }); %>
+            <% } %>
+          <% }); %>
+        </tbody>
+        <tfoot>
+          <tr class="bg-green-100 font-semibold text-green-800">
+            <td colspan="4" class="px-4 py-3 text-right">Grand Total:</td>
+            <td colspan="3" class="px-4 py-3 text-green-700 text-lg">₹<%= grandTotal %></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+  </div>
+</body>
+</html>
